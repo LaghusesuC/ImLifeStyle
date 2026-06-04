@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IM Lifestyle - Trendy, Affordable Premium Footwear Store in Tiruppur. Shop Men's, Women's & Kids Shoes, Slippers, Sandals & More.">
+    <meta name="keywords" content="footwear store tiruppur, shoes tiruppur, affordable shoes, trendy footwear, best chappal store">
+    <title>IM Lifestyle - Premium Footwear Store | Tiruppur</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <h1>IM LIFESTYLE</h1>
+                <p class="brand-tagline">Step Into Style</p>
+            </div>
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="navbar-menu" id="navbarMenu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#shop" class="nav-link">Shop</a>
+                <a href="#categories" class="nav-link">Categories</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="navbar-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <button class="cart-btn" id="cartBtn">
+                    🛒 <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Step Into Style. Walk With Confidence.</h2>
+            <p class="hero-subtitle">Discover trendy footwear collections for every occasion</p>
+            <div class="hero-ctas">
+                <button class="btn btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">Shop Now</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('categories').scrollIntoView({behavior: 'smooth'})">View Collection</button>
+                <button class="btn btn-outline" onclick="openWhatsApp()">Contact Store</button>
+            </div>
+            <div class="trust-badges">
+                <div class="badge">✓ Premium Quality</div>
+                <div class="badge">✓ Affordable Prices</div>
+                <div class="badge">✓ Fast Support</div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-image-grid">
+                <div class="hero-image hero-image-1"></div>
+                <div class="hero-image hero-image-2"></div>
+                <div class="hero-image hero-image-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose IM Lifestyle?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👑</div>
+                    <h3>Premium Quality</h3>
+                    <p>Carefully selected footwear with durability and comfort in mind</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Affordable Prices</h3>
+                    <p>Best value for money without compromising on quality</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🆕</div>
+                    <h3>Latest Trends</h3>
+                    <p>New styles added regularly - always stay fashionable</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast Support</h3>
+                    <p>Quick WhatsApp support and responsive customer service</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Wide Collection</h3>
+                    <p>Shoes, slippers, sandals for men, women & kids</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick shipping across India with easy returns</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 class="section-title">Shop By Category</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="shop">
+        <div class="container">
+            <h2 class="section-title">All Products</h2>
+            
+            <!-- Filters -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <label for="categoryFilter">Category:</label>
+                    <select id="categoryFilter" onchange="applyFilters()">
+                        <option value="">All Categories</option>
+                        <option value="sneakers">Sneakers</option>
+                        <option value="crocks">Crocks</option>
+                        <option value="slides">Slides</option>
+                        <option value="ladies">Ladies</option>
+                        <option value="mensboys">Men's & Boys</option>
+                        <option value="formals">Formals</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="genderFilter">Gender:</label>
+                    <select id="genderFilter" onchange="applyFilters()">
+                        <option value="">All</option>
+                        <option value="men">Men</option>
+                        <option value="women">Women</option>
+                        <option value="kids">Kids</option>
+                        <option value="unisex">Unisex</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="priceFilter">Price Range:</label>
+                    <select id="priceFilter" onchange="applyFilters()">
+                        <option value="">All Prices</option>
+                        <option value="0-300">Under ₹300</option>
+                        <option value="300-500">₹300 - ₹500</option>
+                        <option value="500-800">₹500 - ₹800</option>
+                        <option value="800+">Above ₹800</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sizeFilter">Size:</label>
+                    <select id="sizeFilter" onchange="applyFilters()">
+                        <option value="">All Sizes</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortBy">Sort By:</label>
+                    <select id="sortBy" onchange="applyFilters()">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+                <button class="reset-filters-btn" onclick="resetFilters()">Reset Filters</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick View Modal -->
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close" onclick="closeQuickView()">&times;</span>
+            <div class="modal-body">
+                <div class="product-image-section">
+                    <div id="modalProductImage" class="modal-product-image"></div>
+                </div>
+                <div class="product-details-section">
+                    <h2 id="modalProductName"></h2>
+                    <div class="rating">
+                        <span id="modalProductRating">★★★★☆</span>
+                        <span id="modalProductReviews">(0 reviews)</span>
+                    </div>
+                    <div class="price-section">
+                        <span class="original-price" id="modalOriginalPrice">₹0</span>
+                        <span class="offer-price" id="modalOfferPrice">₹0</span>
+                        <span class="discount" id="modalDiscount">0% OFF</span>
+                    </div>
+                    <p id="modalProductDescription"></p>
+                    
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label>Size:</label>
+                            <div class="size-selector" id="modalSizeSelector"></div>
+                        </div>
+                        <div class="option-group">
+                            <label>Color:</label>
+                            <div class="color-selector" id="modalColorSelector"></div>
+                        </div>
+                        <div class="option-group">
+                            <label>Quantity:</label>
+                            <div class="quantity-selector">
+                                <button onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="modalQuantity" value="1" min="1">
+                                <button onclick="increaseQuantity()">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stock-status" id="modalStockStatus">In Stock</div>
+
+                    <div class="modal-actions">
+                        <button class="btn btn-primary btn-large" onclick="addToCartFromModal()">Add to Cart</button>
+                        <button class="btn btn-secondary btn-large" onclick="buyNowFromModal()">Buy Now</button>
+                        <button class="btn btn-outline btn-large" onclick="orderViaWhatsApp()">
+                            💬 Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instagram Section -->
+    <section class="instagram-section">
+        <div class="container">
+            <h2 class="section-title">Follow Us On Instagram</h2>
+            <p class="section-subtitle">@im_lifestyle_tirupur - See our latest collections and customer styles</p>
+            <div class="instagram-grid">
+                <div class="instagram-post">📸 Latest Collection</div>
+                <div class="instagram-post">👟 New Arrivals</div>
+                <div class="instagram-post">👗 Fashion Trends</div>
+                <div class="instagram-post">💬 Customer Stories</div>
+                <div class="instagram-post">🎉 Special Offers</div>
+                <div class="instagram-post">📍 Store Updates</div>
+            </div>
+            <a href="https://www.instagram.com/im_lifestyle_tirupur/" target="_blank" class="btn btn-primary">Follow @im_lifestyle_tirupur</a>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Amazing quality shoes at such affordable prices! I bought 3 pairs and all are perfect. Highly recommend!"</p>
+                    <p class="customer-name">- Priya M.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Best footwear store in Tiruppur. Great variety and the staff is super helpful. Will definitely come again!"</p>
+                    <p class="customer-name">- Rajesh K.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Found the latest trends here at the best prices. Delivery was quick too. Very satisfied!"</p>
+                    <p class="customer-name">- Aisha P.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Excellent customer support via WhatsApp. They helped me find the perfect shoe. Highly professional!"</p>
+                    <p class="customer-name">- Vikram S.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About IM Lifestyle</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Your Trusted Destination for Stylish and Affordable Footwear</h3>
+                    <p>IM Lifestyle is more than just a footwear store – we're your style companion. Located in the heart of Tiruppur, we curate premium quality shoes, slippers, sandals, and accessories that combine style with comfort.</p>
+                    <p>Our mission is to make trendy, high-quality footwear accessible to everyone. Whether you're a college student, young professional, or family shopper, we have something for everyone at prices that won't break the bank.</p>
+                    <h4>Our Promise:</h4>
+                    <ul>
+                        <li>✓ 100% Authentic Products</li>
+                        <li>✓ Premium Quality Materials</li>
+                        <li>✓ Competitive Prices</li>
+                        <li>✓ Excellent Customer Service</li>
+                        <li>✓ Latest Fashion Trends</li>
+                        <li>✓ Easy Returns & Exchanges</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <div class="about-image-placeholder">🏪 IM Lifestyle Store</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>What are your delivery options?</h4>
+                    <p>We offer standard delivery (3-5 days) and express delivery (1-2 days) across India. Delivery charges vary by location.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What is your return policy?</h4>
+                    <p>We accept returns within 7 days if the product is in original condition with all tags intact. Return shipping is free.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What payment methods do you accept?</h4>
+                    <p>We accept Cash on Delivery, UPI, Credit/Debit Cards, Net Banking, and WhatsApp payment options.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I track my order?</h4>
+                    <p>After order confirmation, we'll send you a tracking link via WhatsApp and email so you can monitor delivery in real-time.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you have a size guide?</h4>
+                    <p>Yes! We provide detailed size guides for all categories. Use our size chart or contact us on WhatsApp for personalized sizing help.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I place bulk orders?</h4>
+                    <p>Yes! We offer special bulk discounts for corporate orders and bulk purchases. Contact us at 8838247446 for details.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>IM Lifestyle</h3>
+                    <div class="info-item">
+                        <strong>📍 Address:</strong>
+                        <p>Sirupooluvapatti, Khaderpet, Rayapuram<br>Tiruppur, Tamil Nadu 641667</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>📞 Phone:</strong>
+                        <p><a href="tel:8838247446">+91 8838247446</a></p>
+                    </div>
+                    <div class="info-item">
+                        <strong>💬 WhatsApp:</strong>
+                        <p><a href="https://wa.me/918838247446" target="_blank">Chat with us</a></p>
+                    </div>
+                    <div class="info-item">
+                        <strong>📧 Email:</strong>
+                        <p><a href="mailto:hello@imlifestyle.com">hello@imlifestyle.com</a></p>
+                    </div>
+                    <div class="info-item">
+                        <strong>🕐 Business Hours:</strong>
+                        <p>Mon - Sun: 10:00 AM - 8:00 PM<br>Holiday Hours May Vary</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/im_lifestyle_tirupur/" target="_blank" class="social-btn">Instagram</a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form onsubmit="handleContactForm(event)">
+                        <input type="text" id="contactName" placeholder="Your Name" required>
+                        <input type="email" id="contactEmail" placeholder="Your Email" required>
+                        <input type="tel" id="contactPhone" placeholder="Your Phone">
+                        <textarea id="contactMessage" placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <span class="close" onclick="closeCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Discount:</span>
+                <span id="discount">₹0</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <input type="text" id="couponCode" placeholder="Enter coupon code" class="coupon-input">
+            <button onclick="applyCoupon()" class="coupon-btn">Apply Coupon</button>
+        </div>
+        <div class="cart-actions">
+            <button class="btn btn-primary btn-block" onclick="proceedToCheckout()">Checkout</button>
+            <button class="btn btn-secondary btn-block" onclick="orderViaWhatsAppCart()">Order via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close" onclick="closeCheckout()">&times;</span>
+            <h2 class="checkout-title">Checkout</h2>
+            
+            <div class="checkout-layout">
+                <!-- Left Column: Form -->
+                <div class="checkout-form-section">
+                    <form onsubmit="handleCheckout(event)">
+                        <h3 class="checkout-section-title">Shipping Information</h3>
+                        <div class="form-group">
+                            <label for="checkoutName">Full Name</label>
+                            <input type="text" id="checkoutName" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkoutEmail">Email Address</label>
+                                <input type="email" id="checkoutEmail" placeholder="Email Address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkoutPhone">Phone Number</label>
+                                <input type="tel" id="checkoutPhone" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutAddress">Street Address</label>
+                            <input type="text" id="checkoutAddress" placeholder="Street Address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkoutCity">City</label>
+                                <input type="text" id="checkoutCity" placeholder="City" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkoutState">State</label>
+                                <input type="text" id="checkoutState" placeholder="State" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkoutPincode">Pincode</label>
+                                <input type="text" id="checkoutPincode" placeholder="Pincode" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkoutCountry">Country</label>
+                                <input type="text" id="checkoutCountry" value="India" required>
+                            </div>
+                        </div>
+
+                        <h3 class="checkout-section-title" style="margin-top: 1.5rem;">Payment Method</h3>
+                        <div class="payment-grid">
+                            <label class="payment-card active" id="cardCod">
+                                <input type="radio" name="payment" value="cod" checked onchange="updatePaymentCardStyles()">
+                                <div class="payment-card-content">
+                                    <span class="payment-card-icon">💵</span>
+                                    <span class="payment-card-name">Cash on Delivery</span>
+                                </div>
+                            </label>
+                            <label class="payment-card" id="cardUpi">
+                                <input type="radio" name="payment" value="upi" onchange="updatePaymentCardStyles()">
+                                <div class="payment-card-content">
+                                    <span class="payment-card-icon">📱</span>
+                                    <span class="payment-card-name">UPI Payment</span>
+                                </div>
+                            </label>
+                            <label class="payment-card" id="cardWhatsapp">
+                                <input type="radio" name="payment" value="whatsapp" onchange="updatePaymentCardStyles()">
+                                <div class="payment-card-content">
+                                    <span class="payment-card-icon">💬</span>
+                                    <span class="payment-card-name">WhatsApp Payment</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem;">Place Order</button>
+                    </form>
+                </div>
+                
+                <!-- Right Column: Summary -->
+                <div class="checkout-summary-section">
+                    <h3 class="checkout-section-title">Order Summary</h3>
+                    <div class="checkout-summary-box">
+                        <div class="checkout-summary-items" id="checkoutSummaryItems">
+                            <!-- Populated dynamically -->
+                        </div>
+                        <div class="checkout-totals">
+                            <div class="checkout-total-row">
+                                <span>Subtotal</span>
+                                <span id="checkoutSubtotal">₹0</span>
+                            </div>
+                            <div class="checkout-total-row">
+                                <span>Shipping</span>
+                                <span style="color: #4CAF50; font-weight: 600;">FREE</span>
+                            </div>
+                            <div class="checkout-total-row highlight">
+                                <span>Total</span>
+                                <span id="checkoutTotal">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div id="orderSuccessModal" class="modal">
+        <div class="modal-content success-modal-content">
+            <div class="success-icon-wrapper">
+                <div class="success-checkmark">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="success-checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="success-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                </div>
+            </div>
+            <h2 class="success-title">Order Placed!</h2>
+            <p class="success-subtitle">Thank you for shopping with IM Lifestyle. Your order has been registered.</p>
+            
+            <div class="success-details-card">
+                <div class="success-detail-row">
+                    <span class="detail-label">Order ID:</span>
+                    <span class="detail-value" id="successOrderId" style="font-weight: 700;"></span>
+                </div>
+                <div class="success-detail-row">
+                    <span class="detail-label">Amount:</span>
+                    <span class="detail-value highlight-price" id="successOrderTotal"></span>
+                </div>
+                <div class="success-detail-row">
+                    <span class="detail-label">Deliver To:</span>
+                    <span class="detail-value" id="successCustomerName"></span>
+                </div>
+            </div>
+            
+            <div class="success-actions">
+                <button class="btn btn-primary btn-block" onclick="closeSuccessAndContinue()">Continue Shopping</button>
+                <button class="btn btn-secondary btn-block" onclick="trackOrderOnWhatsApp()">
+                    💬 Track via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/918838247446?text=Hi%20IM%20Lifestyle%21%20I%27m%20interested%20in%20your%20products." target="_blank" class="floating-whatsapp">
+        💬
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>IM LIFESTYLE</h4>
+                    <p>Your trusted destination for stylish and affordable footwear in Tiruppur.</p>
+                    <div class="social-footer">
+                        <a href="https://www.instagram.com/im_lifestyle_tirupur/" target="_blank">Instagram</a>
+                        <a href="https://wa.me/918838247446" target="_blank">WhatsApp</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#shop">Shop All</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#" onclick="filterByCategory('sneakers')">Sneakers</a></li>
+                        <li><a href="#" onclick="filterByCategory('crocks')">Crocks</a></li>
+                        <li><a href="#" onclick="filterByCategory('slides')">Slides</a></li>
+                        <li><a href="#" onclick="filterByCategory('ladies')">Ladies</a></li>
+                        <li><a href="#" onclick="filterByCategory('mensboys')">Men's & Boys</a></li>
+                        <li><a href="#" onclick="filterByCategory('formals')">Formals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>📞 +91 8838247446</li>
+                        <li>📍 Tiruppur, TN</li>
+                        <li>🕐 Mon-Sun 10AM-8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 IM Lifestyle. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
