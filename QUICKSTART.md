@@ -252,7 +252,7 @@ Edit `index.html`:
 ```html
 <!-- Find and update -->
 <h1>IM LIFESTYLE</h1>
-+91 8838247446
++91 9944380045
 @im_lifestyle_tirupur
 Tiruppur, Tamil Nadu
 ```
@@ -304,8 +304,8 @@ const coupons = {
 ## 📞 Contact Information
 
 **Store**: IM Lifestyle
-**Phone**: +91 8838247446
-**WhatsApp**: https://wa.me/918838247446
+**Phone**: +91 9944380045
+**WhatsApp**: https://wa.me/919944380045
 **Instagram**: @im_lifestyle_tirupur
 **Location**: Tiruppur, Tamil Nadu
 
@@ -384,7 +384,7 @@ Your premium eCommerce website is ready to:
 
 1. Check README.md for detailed documentation
 2. Review code comments in HTML/JS files
-3. Contact via WhatsApp: +91 8838247446
+3. Contact via WhatsApp: +91 9944380045
 4. Check FAQ section on website
 
 ---

@@ -83,7 +83,7 @@ Open: index.html
 ### 7. **Contact Options**
 - **WhatsApp**: Floating button or direct messaging
 - **Instagram**: Follow @im_lifestyle_tirupur
-- **Phone**: +91 8838247446
+- **Phone**: +91 9944380045
 - **Contact Form**: Fill and submit for inquiries
 
 ---
@@ -295,8 +295,8 @@ Sirupooluvapatti, Khaderpet, Rayapuram
 Tiruppur, Tamil Nadu 641667
 
 **Contact**:
-- Phone: +91 8838247446
-- WhatsApp: https://wa.me/918838247446
+- Phone: +91 9944380045
+- WhatsApp: https://wa.me/919944380045
 - Instagram: @im_lifestyle_tirupur
 
 **Hours**: 
@@ -434,7 +434,7 @@ This website is created for IM Lifestyle business use. All rights reserved.
 ## 🤝 Support
 
 For questions or issues:
-- WhatsApp: +91 8838247446
+- WhatsApp: +91 9944380045
 - Instagram: @im_lifestyle_tirupur
 - Contact Form: Available on website
 

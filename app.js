@@ -12,7 +12,7 @@ let currentProduct = null;
 // INITIALIZATION
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeApp();
 });
 
@@ -35,9 +35,9 @@ function setupEventListeners() {
     // Mobile navbar toggle
     const navbarToggle = document.getElementById('navbarToggle');
     const navbarMenu = document.getElementById('navbarMenu');
-    
+
     if (navbarToggle && navbarMenu) {
-        navbarToggle.addEventListener('click', function(e) {
+        navbarToggle.addEventListener('click', function (e) {
             e.stopPropagation();
             navbarToggle.classList.toggle('active');
             navbarMenu.classList.toggle('active');
@@ -45,14 +45,14 @@ function setupEventListeners() {
 
         // Close menu when clicking nav links
         navbarMenu.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 navbarToggle.classList.remove('active');
                 navbarMenu.classList.remove('active');
             });
         });
 
         // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             if (!event.target.closest('.navbar')) {
                 navbarToggle.classList.remove('active');
                 navbarMenu.classList.remove('active');
@@ -61,21 +61,21 @@ function setupEventListeners() {
     }
 
     // Search
-    document.getElementById('searchInput').addEventListener('keyup', function(e) {
+    document.getElementById('searchInput').addEventListener('keyup', function (e) {
         if (e.key === 'Enter') {
             performSearch();
         }
     });
 
     // Close modals on click outside
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         if (event.target.classList.contains('modal')) {
             event.target.classList.remove('show');
         }
     });
 
     // Responsive menu
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (e.target.closest('.nav-link')) {
             // Close any open modals
             document.querySelectorAll('.modal.show').forEach(modal => {
@@ -113,7 +113,7 @@ function filterByCategory(categoryKey) {
 
 function renderProductsGrid(products) {
     const productsGrid = document.getElementById('productsGrid');
-    
+
     if (products.length === 0) {
         productsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><p style="font-size: 1.1rem; color: #999;">No products found. Try adjusting your filters.</p></div>';
         return;
@@ -127,7 +127,7 @@ function renderProductsGrid(products) {
                 <div class="product-price-section">
                     ${product.originalPrice ? `<span class="product-original-price">₹${product.originalPrice}</span>` : ''}
                     <span class="product-offer-price">₹${product.price}</span>
-                    ${product.originalPrice ? `<span class="product-discount">${Math.round((1 - product.price/product.originalPrice) * 100)}% OFF</span>` : ''}
+                    ${product.originalPrice ? `<span class="product-discount">${Math.round((1 - product.price / product.originalPrice) * 100)}% OFF</span>` : ''}
                 </div>
                 <div class="product-rating">★★★★★ ${product.rating} (${product.reviews})</div>
                 <div class="product-actions">
@@ -208,12 +208,12 @@ function openQuickView(productId) {
 
     const modal = document.getElementById('quickViewModal');
     const modalImage = document.getElementById('modalProductImage');
-    
+
     // Populate modal with proper image handling
     modalImage.innerHTML = '';
     modalImage.style.fontSize = 'inherit';
     modalImage.style.display = 'block';
-    
+
     if (currentProduct.image && currentProduct.image.length < 3 && /\p{Emoji}/u.test(currentProduct.image)) {
         // Emoji
         modalImage.textContent = currentProduct.image;
@@ -231,7 +231,7 @@ function openQuickView(productId) {
         img.style.height = '100%';
         img.style.objectFit = 'cover';
         img.style.borderRadius = 'var(--border-radius)';
-        img.onerror = function() {
+        img.onerror = function () {
             this.style.display = 'none';
             modalImage.textContent = '📷';
             modalImage.style.fontSize = '3rem';
@@ -246,21 +246,21 @@ function openQuickView(productId) {
         modalImage.style.justifyContent = 'center';
         modalImage.style.height = '300px';
     }
-    
+
     document.getElementById('modalProductName').textContent = currentProduct.name;
     document.getElementById('modalProductRating').textContent = '★'.repeat(Math.floor(currentProduct.rating)) + '☆'.repeat(5 - Math.floor(currentProduct.rating));
     document.getElementById('modalProductReviews').textContent = `(${currentProduct.reviews} reviews)`;
     document.getElementById('modalOriginalPrice').textContent = `₹${currentProduct.originalPrice}`;
     document.getElementById('modalOfferPrice').textContent = `₹${currentProduct.price}`;
-    document.getElementById('modalDiscount').textContent = `${Math.round((1 - currentProduct.price/currentProduct.originalPrice) * 100)}% OFF`;
+    document.getElementById('modalDiscount').textContent = `${Math.round((1 - currentProduct.price / currentProduct.originalPrice) * 100)}% OFF`;
     document.getElementById('modalProductDescription').textContent = currentProduct.description;
-    
+
     // Populate sizes
     const sizeSelector = document.getElementById('modalSizeSelector');
     sizeSelector.innerHTML = currentProduct.sizes.map(size => `
         <button class="size-btn" onclick="selectSize(${size})">${size}</button>
     `).join('');
-    
+
     // Populate colors
     const colorSelector = document.getElementById('modalColorSelector');
     colorSelector.innerHTML = currentProduct.colors.map((color, idx) => `
@@ -328,7 +328,7 @@ function decreaseQuantity() {
 
 function addToCartFromModal() {
     if (!currentProduct) return;
-    
+
     const quantity = parseInt(document.getElementById('modalQuantity').value);
     const selectedSize = document.querySelector('.size-btn.active');
     const selectedColor = document.querySelector('.color-btn.active');
@@ -357,9 +357,9 @@ function addToCart(productId, quantity = 1, size = '8', color = 'Black') {
     if (!product) return;
 
     // Check if product already in cart with same size and color
-    const existingItem = cart.find(item => 
-        item.id === productId && 
-        item.size === (size || '8') && 
+    const existingItem = cart.find(item =>
+        item.id === productId &&
+        item.size === (size || '8') &&
         item.color === (color || 'Black')
     );
 
@@ -377,7 +377,7 @@ function addToCart(productId, quantity = 1, size = '8', color = 'Black') {
 
     saveCartToStorage();
     updateCartUI();
-    
+
     // Show feedback
     showNotification(`✓ ${product.name} added to cart!`);
 }
@@ -402,7 +402,7 @@ function updateCartUI() {
     document.getElementById('cartCount').textContent = cartCount;
 
     const cartItemsContainer = document.getElementById('cartItems');
-    
+
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
     } else {
@@ -418,7 +418,7 @@ function updateCartUI() {
                 // Fallback
                 imageHTML = `<div class="cart-item-image" style="font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">📦</div>`;
             }
-            
+
             return `
                 <div class="cart-item">
                     ${imageHTML}
@@ -486,7 +486,7 @@ function applyCoupon() {
 
     const total = Math.max(0, subtotal - discount);
     document.getElementById('cartTotal').textContent = `₹${total.toFixed(0)}`;
-    
+
     showNotification(`✓ Coupon applied! You saved ₹${discount.toFixed(0)}`);
 }
 
@@ -497,7 +497,7 @@ function proceedToCheckout() {
         alert('Your cart is empty');
         return;
     }
-    
+
     closeCart();
     renderCheckoutSummary();
     document.getElementById('checkoutModal').classList.add('show');
@@ -507,12 +507,12 @@ function renderCheckoutSummary() {
     const summaryItems = document.getElementById('checkoutSummaryItems');
     const subtotalEl = document.getElementById('checkoutSubtotal');
     const totalEl = document.getElementById('checkoutTotal');
-    
+
     if (!summaryItems || !subtotalEl || !totalEl) return;
-    
+
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const cartTotalText = document.getElementById('cartTotal').textContent; // Get the total from the cart UI (handles coupon codes if any)
-    
+
     summaryItems.innerHTML = cart.map(item => {
         let imageSrc = item.image;
         let imageHTML = '';
@@ -523,7 +523,7 @@ function renderCheckoutSummary() {
         } else {
             imageHTML = `<span>📦</span>`;
         }
-        
+
         return `
             <div class="checkout-summary-item" style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0;">
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -537,7 +537,7 @@ function renderCheckoutSummary() {
             </div>
         `;
     }).join('');
-    
+
     subtotalEl.textContent = `₹${subtotal.toFixed(0)}`;
     totalEl.textContent = cartTotalText;
 }
@@ -595,18 +595,18 @@ function handleCheckout(event) {
 function completeOrder(orderDetails) {
     lastPlacedOrder = orderDetails;
     showNotification('✓ Order registered!');
-    
+
     // Save order
     localStorage.setItem('lastOrder', JSON.stringify(orderDetails));
-    
+
     // Clear cart
     cart = [];
     saveCartToStorage();
     updateCartUI();
-    
+
     // Close modal
     closeCheckout();
-    
+
     // Reset form
     document.querySelector('.checkout-form-section form')?.reset();
 
@@ -618,7 +618,7 @@ function showOrderSuccessModal(orderDetails) {
     document.getElementById('successOrderId').textContent = orderDetails.orderId;
     document.getElementById('successOrderTotal').textContent = `₹${orderDetails.total.toFixed(0)}`;
     document.getElementById('successCustomerName').textContent = orderDetails.customer.name;
-    
+
     document.getElementById('orderSuccessModal').classList.add('show');
 }
 
@@ -633,14 +633,14 @@ function closeSuccessAndContinue() {
 
 function trackOrderOnWhatsApp() {
     if (!lastPlacedOrder) return;
-    
+
     let message = `Hi IM Lifestyle! I just placed an order. Please confirm and share tracking details:\n\n`;
     message += `Order ID: ${lastPlacedOrder.orderId}\n`;
     message += `Name: ${lastPlacedOrder.customer.name}\n`;
     message += `Total: ${document.getElementById('successOrderTotal').textContent}\n\n`;
     message += `Thank you!`;
-    
-    const whatsappUrl = `https://wa.me/918838247446?text=${encodeURIComponent(message)}`;
+
+    const whatsappUrl = `https://wa.me/919944380045?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
@@ -650,13 +650,13 @@ function trackOrderOnWhatsApp() {
 
 function orderViaWhatsApp() {
     if (!currentProduct) return;
-    
+
     const quantity = parseInt(document.getElementById('modalQuantity').value);
     const size = document.querySelector('.size-btn.active')?.textContent || '8';
-    
+
     const message = `Hi IM Lifestyle! I'm interested in ordering:\n\n${currentProduct.name}\nPrice: ₹${currentProduct.price}\nQuantity: ${quantity}\nSize: ${size}\n\nPlease provide more details and proceed with the order.`;
-    
-    const whatsappUrl = `https://wa.me/918838247446?text=${encodeURIComponent(message)}`;
+
+    const whatsappUrl = `https://wa.me/919944380045text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
@@ -667,7 +667,7 @@ function orderViaWhatsAppCart() {
     }
 
     let message = 'Hi IM Lifestyle! I want to place an order for the following items:\n\n';
-    
+
     cart.forEach((item, idx) => {
         message += `${idx + 1}. ${item.name}\n   Price: ₹${item.price} x ${item.quantity} = ₹${item.price * item.quantity}\n   Size: ${item.size}\n\n`;
     });
@@ -675,7 +675,7 @@ function orderViaWhatsAppCart() {
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     message += `Total: ₹${total}\n\nPlease confirm the order and provide payment details.`;
 
-    const whatsappUrl = `https://wa.me/918838247446?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/919944380045?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
@@ -686,19 +686,19 @@ function orderViaWhatsAppCheckout(orderDetails) {
     message += `Email: ${orderDetails.customer.email}\n`;
     message += `Address: ${orderDetails.customer.address}, ${orderDetails.customer.city}, ${orderDetails.customer.state} - ${orderDetails.customer.pincode}\n\n`;
     message += `Items:\n`;
-    
+
     orderDetails.items.forEach((item, idx) => {
         message += `${idx + 1}. ${item.name} (Size: ${item.size}) x ${item.quantity} = ₹${item.price * item.quantity}\n`;
     });
 
     message += `\nTotal: ₹${orderDetails.total}\nPayment Method: ${orderDetails.paymentMethod}\n\nPlease confirm this order.`;
 
-    const whatsappUrl = `https://wa.me/918838247446?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/919944380045?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
 function openWhatsApp() {
-    window.open('https://wa.me/918838247446?text=Hi%20IM%20Lifestyle!%20I%20would%20like%20to%20know%20more%20about%20your%20products.', '_blank');
+    window.open('https://wa.me/919944380045?text=Hi%20IM%20Lifestyle!%20I%20would%20like%20to%20know%20more%20about%20your%20products.', '_blank');
 }
 
 // ============================================
@@ -717,11 +717,11 @@ function handleContactForm(event) {
     const contactDetails = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
 
     // Send via WhatsApp as backup
-    const whatsappUrl = `https://wa.me/918838247446?text=${encodeURIComponent('New Contact Form Inquiry:\n\n' + contactDetails)}`;
+    const whatsappUrl = `https://wa.me/919944380045?text=${encodeURIComponent('New Contact Form Inquiry:\n\n' + contactDetails)}`;
     window.open(whatsappUrl, '_blank');
 
     showNotification('✓ Thank you! We\'ll get back to you soon.');
-    
+
     // Reset form
     event.target.reset();
 }
@@ -764,9 +764,9 @@ function showNotification(message) {
         animation: slideIn 0.3s ease;
     `;
     notification.textContent = message;
-    
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.style.animation = 'slideInLeft 0.3s ease reverse';
         setTimeout(() => notification.remove(), 300);
